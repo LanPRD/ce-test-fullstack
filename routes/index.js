@@ -50,7 +50,7 @@ router.get("/users/:email", async function (req, res) {
   }
 });
 
-router.put("/:key", async function (req, res) {
+router.put("/users/:key", async function (req, res) {
   const key = req.params.key;
   const { agreedTerms, email, isActive, name, phone, revenue } = req.body;
 
@@ -76,7 +76,7 @@ router.put("/:key", async function (req, res) {
   }
 });
 
-router.delete("/:email", async function (req, res) {
+router.delete("/users/:email", async function (req, res) {
   const email = req.params.email;
 
   try {
@@ -87,6 +87,7 @@ router.delete("/:email", async function (req, res) {
     }
 
     await database.delete("users", email);
+    await database.delete("opportunities", email);
 
     return res.status(204).json({ Message: "Client deleted suscessfull" });
   } catch (err) {
